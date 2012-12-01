@@ -1,7 +1,7 @@
 SampleApp::Application.routes.draw do
-  get "users/new"
-
   root to: 'static_pages#home'
+  resources :users
+
   %w{help about contact}.each {|x| match "/#{x}", to: "static_pages##{x}" }
   match "/signup", to: "users#new"
 
