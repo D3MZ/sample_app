@@ -24,13 +24,13 @@ describe "User pages" do
 
     let(:submit) { "Create my account" }
 
-    describe "signup with invalid information" do
+    describe "with invalid information" do
       it 'should not create user' do
         expect {click_button submit}.not_to change(User,:count)
       end
       end
 
-    describe "signup with valid information" do
+    describe "with valid information" do
       before do
         fill_in "Name", with: "Example User"
         fill_in "Email", with: "hello@example.com"
@@ -39,6 +39,15 @@ describe "User pages" do
       end
       it 'should create user' do
         expect {click_button submit}.to change(User,:count).by(1)
+      end
+
+      describe "after saving user"do
+        it {should have_link('Sign out')}
+      end
+
+      describe "followed by signout" do
+        before {click_link "Sign out"}
+        it {should have_link('Sign in')}
       end
     end
 
